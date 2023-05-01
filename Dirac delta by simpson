@@ -1,0 +1,16 @@
+function f=F(x,sigma)
+    f=(exp(-((x-2)^2)/2*sigma^2))*(x+3)/sqrt(2*%pi*sigma^2)
+endfunction
+a=-10;b=10;n=1563;sigma=0.1;h=(b-a)/n
+x(1)=a;x(n+1)=b;
+sum=0
+for i=1:n-1
+    x(i+1)=x(i)+h
+    if (modulo(i,2)==0) then
+     sum=sum+4*F(x(i+1),sigma)
+ else
+     sum=sum+2*F(x(i+1),sigma)
+       end
+end
+I=sum+F(x(1),sigma)+F(x(n+1),sigma)
+disp(I)
