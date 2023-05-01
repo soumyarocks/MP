@@ -1,0 +1,44 @@
+funcprot(0)
+function pl1=p(n, x)
+    sum=0
+    for s=0:n/2
+        den=factorial(s)*factorial(n-s)*(2^n)*factorial(n-2*s)
+        sum=sum+((-1)^s)*factorial(2*n-2*s)*(x.^(n-2*s))/den
+    end
+    pl1=sum
+endfunction
+n=input('enter the value of n : ')
+    
+    
+    
+    
+  function pl2=q(m, x)
+    sum=0
+    for t=0:m/2
+        den=factorial(t)*factorial(m-t)*(2^m)*factorial(m-2*t)
+        sum=sum+((-1)^t)*factorial(2*m-2*t)*(x.^(m-2*t))/den
+    end
+    pl2=sum
+endfunction
+m=input('enter the value of m : ')
+    
+    function f=F(x)
+        f=p(n,x)*q(m,x)
+    endfunction
+    a=-1;//lower limit
+    b=1;// upper limit
+    v=400//number of interals
+    
+    h=(b-a)/v//width of interval
+    x(1)=a;x(v+1)=b
+    sum=0;
+    for i=1:v-1
+        x(i+1)=x(i)+h;
+        if(modulo(i,2)==0)then
+            sum=sum+4*F(x(i+1))
+        else
+            sum=sum+2*F(x(i+1))
+    end
+end
+I=(h/3)*(sum+F(x(1))+F(x(v+1)))
+disp(I)
