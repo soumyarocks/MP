@@ -1,0 +1,13 @@
+clc
+funcprot(0)
+function f=F(u)
+    f=(((3+u)^4)+1)
+endfunction
+w=[8/9 5/9 5/9]
+u=[0 0.774597  -0.774597]  //[ 0 sqrt(3/5) -sqrt(3/5)]
+sum=0
+for i=1:3
+    sum=sum+w(i)*F(u(i))
+    
+end
+disp(sum)
