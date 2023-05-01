@@ -1,0 +1,14 @@
+clc
+function f=F(x)
+    f= exp(x)/(x^2+2)
+endfunction
+//w= [0.853553 0.146447] //for 2 point form
+//x= [0.585786 3.41421]
+w= [0.603154 0.357419 0.0388879 0.000539295] //for 4 point form
+x=[0.322548 1.74576 4.53662 9.39507]
+sum=0;
+for i=1:4
+    sum = sum +w(i)*F(x(i));
+    
+end
+disp(sum)
