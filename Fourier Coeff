@@ -1,0 +1,54 @@
+clf();clc;
+clear;funcprot(0)
+function I=simp(u, v, m)
+    X(1)=-u;X(m+1)=0;sum1=0;
+    h=(X(m+1)-X(1))/(m+1);
+    for i=1:m-1
+        X(i+1)=X(i)+h;
+        if modulo(i, 2)==0 then
+            sum1=sum1+4*v(X(i+1));
+        else
+            sum1=sum1+2*v(X(i+1));
+        end
+    end
+    I=h*(sum1+v(X(1))+v(X(m+1)))/3;
+endfunction 
+function [a0, an, bn]=fr(l,n,f,m)
+    a0=0.5*(simp(l,f,m)-simp(-l,f,m))/l;
+    function a=f1(x,l,n,f)
+        a=f(x)*cos(n*%pi*x/l);
+    endfunction 
+    function b=f2(x,l,n,f)
+        b=f(x)*sin(n*%pi*x/l);
+    endfunction 
+an=(simp(l,f1,m)-simp(-l,f1,m))/l;
+bn=(simp(l,f2,m)-simp(-l,f2,m))/l;
+endfunction
+function y=f(x)
+    //y=2*sign(sin(x));//sq wave
+    y=x^2; //parabola
+    //y=100*asin(sin(%pi*x/2))/%pi;//triangle wave
+    //y=(sin(x)+abs(sin(x)))/2;//hwr
+    //y=abs(sin(x)); //fwr
+endfunction
+function s1=series(x)
+    s1=0;
+    for i=1:n
+        [A0,A(i),B(i)]=fr(l,i,f,300);
+        s1=s1+A(i)*cos(i*%pi*x/l)+B(i)*sin(i*%pi*x/l);
+    end
+    s1=s1+A0;
+    disp([A0],[A B])
+endfunction
+l=%pi; 
+x=-2*l:0.1:2*l;
+for t=0:5
+    n=20*(t+1)
+    subplot(2,3,t+1)
+    plot2d(x,series(x),t+1)
+    xtitle('Plot of function with '+string(n)+' Fourier Coefficients')
+    h1=legend(['y(x)'])
+    a=gca()
+    a.x_location="origin"
+    a.y_location="origin"
+end
