@@ -1,0 +1,13 @@
+function f=F(x)
+    f=(sqrt(2)*sigma*x+5)/sqrt(%pi)
+endfunction
+sigma=0.01
+w=[0.886227 0.886227]  //2point form
+x=[-1/sqrt(2)  1/sqrt(2)]
+//x=[-1.65068 -0.524648 0.524648 1.65068] //3 point form
+//w=[0.0813128 0.804914 0.804914 0.0813128]
+sum=0
+for i=1:2
+    sum=sum+w(i)*F(x(i))
+end
+disp(sum)
